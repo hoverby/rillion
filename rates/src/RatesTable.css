@@ -35,3 +35,12 @@ tr:nth-child(even) {
   background-color: #ffde71;
 }
 
+.clickable-row:focus {
+  outline: 2px solid #007bff;
+  outline-offset: -2px;
+}
+
+.clickable-row:focus:not(:focus-visible) {
+  outline: none;
+}
+

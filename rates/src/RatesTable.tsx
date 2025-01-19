@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, KeyboardEvent } from "react";
 import "./RatesTable.css";
 import { ratesData } from "./data";
 import { RatesPopup } from "./RatesPopup";
@@ -21,16 +21,24 @@ const RatesTable: React.FC = () => {
     setSelectedRate(null);
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLTableRowElement>, code: string, rate: Rate) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setSelectedRate({ code, rate });
+      setIsEditing(true);
+    }
+  };
+
   return (
     <div className="rates-table-div">
-      <table>
+      <table role="grid">
         <thead>
           <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Unit</th>
-            <th>Value</th>
-            <th>Type</th>
+            <th scope="col">Code</th>
+            <th scope="col">Name</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Value</th>
+            <th scope="col">Type</th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +49,11 @@ const RatesTable: React.FC = () => {
                 setSelectedRate({ code, rate });
                 setIsEditing(true);
               }}
+              onKeyDown={(e) => handleKeyDown(e, code, rate)}
               className="clickable-row"
+              tabIndex={0}
+              role="row"
+              aria-label={`${code.toUpperCase()} ${rate.name} ${rate.unit} ${rate.value} ${rate.type}`}
             >
               <td>{code.toUpperCase()}</td>
               <td>{rate.name}</td>
