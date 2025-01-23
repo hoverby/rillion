@@ -1,9 +1,9 @@
-body {
-  margin: 20px;
-}
+
 
 .rates-table-div {
-  margin: 20px;
+  @media (min-width : 512px) {
+    margin: 20px;
+   }  
   overflow-x: auto;
   max-width: 100%;
   -webkit-overflow-scrolling: touch;
